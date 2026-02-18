@@ -1,0 +1,206 @@
+{
+  "name": "Update Event",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9cc4922b-5a90-464c-8907-917cbbf13a14",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "deepichawla3@gmail.com",
+          "mode": "list",
+          "cachedResultName": "deepichawla3@gmail.com"
+        },
+        "eventId": "={{$json[\"id\"]}}",
+        "updateFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "5e0ef9e6-044c-4b51-85ed-d81e4438d2c1",
+      "name": "Update an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "hdbLn4RiccaRVjCI",
+          "name": "Google Calendar account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0",
+          "mode": "list",
+          "cachedResultName": "Herculus Detailing CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('When Executed by Another Workflow').item.json.query.parseJson().id }}",
+            "Appoinntment Type ": "={{ $('When Executed by Another Workflow').item.json.query.parseJson().appointmentType}}",
+            "Email": "={{ $('When Executed by Another Workflow').item.json.query.parseJson().email}}",
+            "Date": "={{ $('When Executed by Another Workflow').item.json.query.parseJson().date}}",
+            "Notes": "={{ $('When Executed by Another Workflow').item.json.query.parseJson().notes}}",
+            "Phone Number": "={{ $('When Executed by Another Workflow').item.json.query.parseJson().phone}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Appoinntment Type ",
+              "displayName": "Appoinntment Type ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "f2d890e6-ea13-473d-833b-1b507da2d4c3",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yYeMtB0nGum6lwEW",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "query": "{\"id\":\"apt_002\",\"name\":\"diti chawla\",\"email\":\"diti.chawla1994@gmail.com\",\"phone\":\"4493301745\",\"appointmentType\":\"interior detailing\",\"date\":\"today\",\"time\":\"10:00\",\"notes\":\"customer requested appointment at 10:00\"}"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Update an event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update an event": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "e6231528-4ea5-4adf-adc9-b216cfcf8cdc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "82a9737442edcd3c9d1d1a2da88a6ac84ef97b5b8ccf5ef9991726d45ca2538d"
+  },
+  "id": "LUqgw9SW-8gEyI8QOd3KX",
+  "tags": []
+}

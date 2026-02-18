@@ -1,0 +1,175 @@
+{
+  "name": "New Client CRM",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6e6d17fc-8dab-44ff-93ca-0dee33ef881c",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0",
+          "mode": "list",
+          "cachedResultName": "Herculus Detailing CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $json.email }}",
+            "Phone Number": "={{ $json.phone }}",
+            "Notes": "={{ $json.notes }}",
+            "ID": "={{ $json.id }}",
+            "Date": "={{ $json.date }}",
+            "Appointment Type ": "={{ $json.appointmentType }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Appointment Type ",
+              "displayName": "Appointment Type ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1a779c3a-4208-495d-8ee6-1e387da30f27",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yYeMtB0nGum6lwEW",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "id": "apt_001",
+          "name": "tarun",
+          "email": "tarungupta293@gmail.com",
+          "phone": "4493301745",
+          "appointmentType": "interior detailing",
+          "date": "2026-02-07",
+          "notes": "customer requested morning slot and confirmed availability",
+          "query": "user message text"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "59e063f4-c7e8-46f7-a4f4-98391beeb395",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "82a9737442edcd3c9d1d1a2da88a6ac84ef97b5b8ccf5ef9991726d45ca2538d"
+  },
+  "id": "6c4Wv1Uiag__KtBh1c6Fb",
+  "tags": []
+}

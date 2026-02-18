@@ -1,0 +1,298 @@
+{
+  "name": "Client Lookup",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c9185e31-db26-47b8-ac8c-53f5c98b5a85",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0",
+          "mode": "list",
+          "cachedResultName": "Herculus Detailing CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Email",
+              "lookupValue": "={{ $json.query }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a8a565db-ff16-4ec5-b2b9-84ab416c74ce",
+      "name": "Client Lookup",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yYeMtB0nGum6lwEW",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9d6b633f-f74e-4a1c-b66b-5390f4b100c5",
+              "leftValue": "=",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "9b8db957-f762-4e27-933c-12a1f0259c0f",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "15ojnzvlXX-1ACsWxZUwvWRVCpj0PpJxCmytfggQV4Cc",
+          "mode": "list",
+          "cachedResultName": "Contact Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15ojnzvlXX-1ACsWxZUwvWRVCpj0PpJxCmytfggQV4Cc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15ojnzvlXX-1ACsWxZUwvWRVCpj0PpJxCmytfggQV4Cc/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        -96
+      ],
+      "id": "e4cfb7d7-a36d-47d6-a0ba-cbe172e718fe",
+      "name": "Get Info",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jY3HopPqNbnF8dd8",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fdb2db07-b616-4c34-af68-033889fb07b8",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        832,
+        -96
+      ],
+      "id": "478e90b5-f93f-4b23-ab71-2fc3d4457585",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b007cf17-d9f9-4616-9a37-d18888b6416c",
+              "name": "Name",
+              "value": "={{ $('When Executed by Another Workflow').item.json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "8adae5fa-2147-4ff7-9010-a310a9b71969",
+              "name": "Email",
+              "value": "={{ $('When Executed by Another Workflow').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "e5ecea51-fbc0-40b2-be9c-d89ac1daf3b0",
+              "name": "Phone",
+              "value": "={{ $('When Executed by Another Workflow').item.json.phone }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "afaaa1bf-0a8f-4b41-8140-87a5864b4b01",
+      "name": "Message"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        96
+      ],
+      "id": "e47c002b-5455-44b5-ab1a-12b040e20247",
+      "name": "New Client Message"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "query": "nibti.javala1994@gmail.com"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Client Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Client Lookup": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get Info",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "New Client Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Info": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "ed2f3fc0-8c91-48c4-a5a8-a2013e2e83da",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "82a9737442edcd3c9d1d1a2da88a6ac84ef97b5b8ccf5ef9991726d45ca2538d"
+  },
+  "id": "u08NHifXeOxgzP_HmjkAb",
+  "tags": []
+}

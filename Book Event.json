@@ -1,0 +1,263 @@
+{
+  "name": "Book Event",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -352,
+        -64
+      ],
+      "id": "b3967bad-3b0b-4278-ad80-cb9a6f923a09",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "deeptichawla790@gmail.com",
+          "mode": "list",
+          "cachedResultName": "deeptichawla790@gmail.com"
+        },
+        "start": "={{ $json.startDateTime }}",
+        "end": "={{ $json.endDateTime }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6669de22-88a0-4d0f-8195-8200168bf40a",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "hdbLn4RiccaRVjCI",
+          "name": "Google Calendar account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0",
+          "mode": "list",
+          "cachedResultName": "Herculus Detailing CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vux1H7nlHWHgTBAi5gdrEVxFDPYgjHDrJ6iEJDM7xS0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Phone Number": "={{ $('Normalize Vapi Payload').item.json.query.phone }}",
+            "ID": "={{ $('Normalize Vapi Payload').item.json.query.id }}",
+            "Email": "={{ $('Normalize Vapi Payload').item.json.query.email }}",
+            "Date": "={{ $('node js').item.json.startReadable }}",
+            "Notes": "={{ $('Normalize Vapi Payload').item.json.query.notes }}",
+            "Name": "={{ $('Normalize Vapi Payload').item.json.query.name }}",
+            "Appointment Type ": "={{ $('Normalize Vapi Payload').item.json.query.appointmentType }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Appointment Type ",
+              "displayName": "Appointment Type ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        400,
+        0
+      ],
+      "id": "3c15854a-c209-4aa1-9561-42faa3d9a058",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yYeMtB0nGum6lwEW",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const q = item.json.query || {};\n\n  /* -------------------------\n     1. Date\n     ------------------------- */\n  const date =\n    q.date === \"today\"\n      ? new Date().toLocaleDateString(\"en-CA\")\n      : q.date;\n\n  /* -------------------------\n     2. Time\n     ------------------------- */\n  let time = q.time || \"10:00\";\n  const text = (q.originalText || \"\").toLowerCase();\n\n  if (text.includes(\"pm\")) {\n    let h = parseInt(time.split(\":\")[0], 10);\n    if (h < 12) h += 12;\n    time = `${h.toString().padStart(2, \"0\")}:00`;\n  }\n\n  if (text.includes(\"am\") && time.startsWith(\"12\")) {\n    time = \"00:00\";\n  }\n\n  /* -------------------------\n     3. Calendar-safe datetime\n     ------------------------- */\n  const startDateTime = `${date}T${time}:00+11:00`;\n\n  const endHour = (parseInt(time.split(\":\")[0], 10) + 1)\n    .toString()\n    .padStart(2, \"0\");\n\n  const endDateTime = `${date}T${endHour}:00+11:00`;\n\n  /* -------------------------\n     4. Human-readable (NO Date())\n     ------------------------- */\n  item.json.startReadable = `${date} ${time}`;\n  item.json.endReadable = `${date} ${endHour}:00`;\n\n  /* -------------------------\n     5. Save\n     ------------------------- */\n  item.json.startDateTime = startDateTime;\n  item.json.endDateTime = endDateTime;\n\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16,
+        -16
+      ],
+      "id": "64ae2134-02b5-4458-a2f5-3a566db1124c",
+      "name": "node js"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  let q = {};\n\n  // 🔥 FIX: parse query if it's a string\n  if (typeof item.json.query === \"string\") {\n    try {\n      q = JSON.parse(item.json.query);\n    } catch (e) {\n      q = {};\n    }\n  } else {\n    q = item.json.query || {};\n  }\n\n  item.json.query = {\n    id: q.id || \"apt_\" + Math.floor(Math.random() * 10000),\n    name: (q.name || \"\").toLowerCase(),\n    email: (q.email || \"\").toLowerCase().replace(/\\s+/g, \"\"),\n    phone: q.phone || \"\",\n    appointmentType: q.appointmentType || q.appointment_type || \"\",\n    date: q.date || \"\",\n    time: q.time || \"\",\n    notes: q.notes || \"\"\n  };\n\n  return item;\n});\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        0
+      ],
+      "id": "641d9f6c-52b3-48ca-8688-a205bab6ddec",
+      "name": "Normalize Vapi Payload"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "query": {
+            "id": "apt_002",
+            "name": "Deepti",
+            "email": "diti.chawla1994@gmail.com",
+            "phone": "4493301745",
+            "appointmentType": "interior detailing",
+            "date": "today",
+            "time": "10:00",
+            "notes": "customer requested appointment at 10:00"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Normalize Vapi Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node js": {
+      "main": [
+        [
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Vapi Payload": {
+      "main": [
+        [
+          {
+            "node": "node js",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "db0c7532-3f39-4771-b5a7-eb0ecf19a4cf",
+  "meta": {
+    "instanceId": "82a9737442edcd3c9d1d1a2da88a6ac84ef97b5b8ccf5ef9991726d45ca2538d"
+  },
+  "id": "nv0JuNIUWoStV-3iZ9Wfs",
+  "tags": []
+}

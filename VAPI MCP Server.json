@@ -1,0 +1,307 @@
+{
+  "name": "VAPI MCP Server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "4e1a5449-3af8-4184-b16b-0ea34b31aae4"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8fd13616-78b2-4971-9445-ac96b503d56f",
+      "name": "MCP Server Trigger",
+      "webhookId": "4e1a5449-3af8-4184-b16b-0ea34b31aae4"
+    },
+    {
+      "parameters": {
+        "description": "Call this tooll to lookup and email in the CRM",
+        "workflowId": {
+          "__rl": true,
+          "value": "u08NHifXeOxgzP_HmjkAb",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/u08NHifXeOxgzP_HmjkAb",
+          "cachedResultName": "Client Lookup"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        208
+      ],
+      "id": "a5fd84ec-1546-4232-a500-f7636c96bba9",
+      "name": "Call Client Lookup"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool to New Client CRM.",
+        "workflowId": {
+          "__rl": true,
+          "value": "6c4Wv1Uiag__KtBh1c6Fb",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/6c4Wv1Uiag__KtBh1c6Fb",
+          "cachedResultName": "New Client CRM"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -32,
+        320
+      ],
+      "id": "36b8fea8-e29b-4bba-b046-eaa4989b54d8",
+      "name": "Call 'New Client CRM'"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool to check availablity.",
+        "workflowId": {
+          "__rl": true,
+          "value": "aPlQhsRHPMUlIpUo84zdh",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/aPlQhsRHPMUlIpUo84zdh",
+          "cachedResultName": "Check Availability"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        144
+      ],
+      "id": "48e3f864-c62e-4eb3-9ff0-d0cf23f871f7",
+      "name": "Call Check Availablity"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool to Update the appointment.",
+        "workflowId": {
+          "__rl": true,
+          "value": "LUqgw9SW-8gEyI8QOd3KX",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/LUqgw9SW-8gEyI8QOd3KX",
+          "cachedResultName": "Update Event"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        208
+      ],
+      "id": "df06b1eb-7679-422b-a77a-d116c51e107b",
+      "name": "Call Update Appointment"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool to book event.",
+        "workflowId": {
+          "__rl": true,
+          "value": "nv0JuNIUWoStV-3iZ9Wfs",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/nv0JuNIUWoStV-3iZ9Wfs",
+          "cachedResultName": "Book Event"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        304
+      ],
+      "id": "330230b9-9045-4f6c-9f47-a1ef164737b6",
+      "name": "Call Book Event"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool to lookup the appointment.",
+        "workflowId": {
+          "__rl": true,
+          "value": "FRU0dy0tAk8qw2TG5yLL2",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/FRU0dy0tAk8qw2TG5yLL2",
+          "cachedResultName": "Lookup Appointment"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        400
+      ],
+      "id": "18114b26-78a1-47d1-8681-35be9431396f",
+      "name": "Call Lookup Appointment"
+    },
+    {
+      "parameters": {
+        "description": "Call this tool to delete appointment.",
+        "workflowId": {
+          "__rl": true,
+          "value": "g3Dym_P3WN-Eu8T-nFG1M",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/g3Dym_P3WN-Eu8T-nFG1M",
+          "cachedResultName": "Delete Appointment"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        336
+      ],
+      "id": "b451e691-6ff6-4aee-975c-6e1e73b9bcb9",
+      "name": "Call Delete Appointment"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Call Client Lookup": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'New Client CRM'": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Check Availablity": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Update Appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Book Event": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Lookup Appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Delete Appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c5093e63-d701-4cd6-a853-c8bbe1af5bb3",
+  "meta": {
+    "instanceId": "82a9737442edcd3c9d1d1a2da88a6ac84ef97b5b8ccf5ef9991726d45ca2538d"
+  },
+  "id": "GvuVUslqyntQ6DcRPoVFH",
+  "tags": []
+}
